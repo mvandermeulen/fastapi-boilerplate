@@ -32,4 +32,4 @@ RUN apt-get update \
 
 EXPOSE 81
 
-CMD poetry run uvicorn main:app --host=0.0.0.0 --port=81
+CMD poetry run uvicorn app.main:app --port 81
