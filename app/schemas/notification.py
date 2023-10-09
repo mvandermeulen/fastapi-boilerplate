@@ -3,10 +3,10 @@ from enum import Enum
 
 from fastapi import Query
 
-from app.schemas import UserResponse
 from app.schemas.core import BaseSchema
 from app.schemas.core import PagingMeta
 from app.schemas.core import SortQueryIn
+from app.schemas.user import UserResponse
 
 
 class NotificationBase(BaseSchema):
