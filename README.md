@@ -30,7 +30,8 @@ FastAPI REST boilerplate for typical project
 - [x] Seeding ([sqlalchemyseed](https://sqlalchemyseed.readthedocs.io/en/stable/)).
 - [x] Mailing
 - [x] Realtime notification using [messaging queue](https://www.rabbitmq.com/) and [python-socketio](https://python-socketio.readthedocs.io/en/latest/server.html)
-- [ ] File uploads
+- [x] File uploads (aws s3, cloudinary, google cloud storage)
+- [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
 - [ ] I18N
 - [ ] Elasticseach - logstash
@@ -121,6 +122,15 @@ Keep a note of the file paths where you save these keys on your project folder (
 - `MSAL_CLIENT_ID`: Microsoft MSAL client ID
 - `MSAL_CLIENT_SECRET`: Microsoft MSAL client secret
 - `MSAL_WEBHOOK_OAUTH_REDIRECT_URI`: Redirect URI for Microsoft MSAL OAuth callbacks
+- `CLOUDINARY_CLOUD_NAME`: The name of your Cloudinary cloud.
+- `CLOUDINARY_API_KEY`: Your Cloudinary API key.
+- `CLOUDINARY_API_SECRET`: Your Cloudinary API secret.
+- `AWS_BUCKET_NAME`: The name of the AWS S3 bucket you want to access.
+- `AWS_KEY_ID`: AWS access key ID for accessing the S3 bucket.
+- `AWS_SECRET_KEY`: AWS secret key for accessing the S3 bucket.
+- `AWS_REGION`: The AWS region where the S3 bucket is located.
+- `GCS_BUCKET_NAME`: The name of the Google Cloud Storage (GCS) bucket you want to access.
+
 
 ## Quick run
 

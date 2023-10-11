@@ -2,6 +2,12 @@ from .core import BaseSchema
 from .core import PagingMeta
 from .core import PagingQueryIn
 from .core import SortQueryIn
+from .file import FileBase
+from .file import FileCreate
+from .file import FileResponse
+from .file import FileSortQueryIn
+from .file import FilesPagedResponse
+from .file import FileUpdate
 from .notification import NotificationBase
 from .notification import NotificationCreate
 from .notification import NotificationResponse

@@ -1,6 +1,7 @@
 from .user_async import user
 from app import models
 from app import schemas
+from app.crud.crud_async_base import CRUDAsyncBase
 from app.crud.crud_sync_base import CRUDSyncBase
 
 user_sync: CRUDSyncBase[
@@ -25,4 +26,16 @@ notification_sync: CRUDSyncBase[
     model=models.Notification,
     response_schema_class=schemas.NotificationResponse,
     list_response_class=schemas.NotificationsPagedResponse,
+)
+
+file_async: CRUDAsyncBase[
+    models.File,
+    schemas.FileCreate,
+    schemas.FileUpdate,
+    schemas.FileResponse,
+    schemas.FilesPagedResponse,
+] = CRUDAsyncBase(
+    model=models.File,
+    response_schema_class=schemas.FileResponse,
+    list_response_class=schemas.FilesPagedResponse,
 )

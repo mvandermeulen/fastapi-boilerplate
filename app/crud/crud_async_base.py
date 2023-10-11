@@ -1,6 +1,7 @@
 import datetime
 import math
 from typing import Any
+from typing import List
 from typing import TypeVar
 
 from fastapi.encoders import jsonable_encoder
@@ -114,6 +115,19 @@ class CRUDAsyncBase(
         await db.refresh(db_obj)
 
         return db_obj
+
+    async def create_bulk(
+        self, db: AsyncSession, create_schemas: List[CreateSchemaType]
+    ) -> list[ModelType]:
+        db_objs = [
+            self.model(**jsonable_encoder(create_schema, by_alias=False))
+            for create_schema in create_schemas
+        ]
+        db.add_all(db_objs)
+        await db.flush()
+        db.commit()
+
+        return db_objs
 
     async def update(
         self,

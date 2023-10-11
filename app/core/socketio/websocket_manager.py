@@ -10,7 +10,7 @@ from app.db.session import get_db
 
 sio = socketio.AsyncServer(
     async_mode="asgi",
-    cors_allowed_origins=settings.BACKEND_CORS_ORIGINS,
+    cors_allowed_origins=settings.CORS_ORIGINS,
     logger=True,
 )
 asgi_app = socketio.ASGIApp(socketio_server=sio, socketio_path="socket.io")

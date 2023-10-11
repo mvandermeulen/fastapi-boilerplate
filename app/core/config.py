@@ -8,7 +8,10 @@ from pydantic_settings import SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+    )
 
     TITLE: str = "FASTAPI-BOILERPLATE"
     ENV: str = "dev"
@@ -100,6 +103,17 @@ class Settings(BaseSettings):
     MSAL_CLIENT_ID: str
     MSAL_CLIENT_SECRET: str
     MSAL_WEBHOOK_OAUTH_REDIRECT_URI: str
+
+    CLOUDINARY_CLOUD_NAME: str
+    CLOUDINARY_API_KEY: str
+    CLOUDINARY_API_SECRET: str
+
+    AWS_BUCKET_NAME: str
+    AWS_KEY_ID: str
+    AWS_SECRET_KEY: str
+    AWS_REGION: str
+
+    GCS_BUCKET_NAME: str
 
 
 @lru_cache
