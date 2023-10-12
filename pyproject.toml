@@ -34,6 +34,7 @@ python-socketio = "^5.9.0"
 cloudinary = "^1.36.0"
 boto3 = "^1.28.62"
 google-cloud-storage = "^2.11.0"
+redis = "^5.0.1"
 
 [tool.poetry.group.dev.dependencies]
 locust = "^2.16.1"
@@ -60,3 +61,4 @@ migrate = {"shell" = "alembic upgrade heads", help="Database migration"}
 dwngrade = {"shell" = "alembic downgrade -1", help="Downgrade the last migration"}
 drop-tables = {"cmd" = "python -m seeder.run drop-tables", help="Drop all tables"}
 seed = {"cmd" = "python -m seeder.run seed", help="Seed database"}
+run = {"cmd" = "poetry run uvicorn app.main:app --port 8001 --host 0.0.0.0 --reload", help="Run application"}

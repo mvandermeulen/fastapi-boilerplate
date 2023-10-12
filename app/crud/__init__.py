@@ -1,3 +1,4 @@
+from .redis_crud import redis_conn
 from .user_async import user
 from app import models
 from app import schemas

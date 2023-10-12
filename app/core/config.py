@@ -115,6 +115,11 @@ class Settings(BaseSettings):
 
     GCS_BUCKET_NAME: str
 
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
+    REDIS_PASSWORD: str
+
 
 @lru_cache
 def get_settings() -> Settings:

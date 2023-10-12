@@ -3,6 +3,7 @@ from typing import Any
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Request
 from fastapi import status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,6 +12,7 @@ from app import crud
 from app import schemas
 from app.core.security import create_token
 from app.core.security import get_current_user
+from app.core.security import revok_token
 from app.db import get_async_db
 from app.models import User
 
@@ -39,6 +41,17 @@ async def login(
         "access_token": token,
         "token_type": "Bearer",
     }
+
+
+@router.delete("/logout", operation_id="logout")
+async def logout(
+    request: Request,
+    msg: str = Depends(revok_token),
+) -> Any:
+    """
+    Logout user and remove refresh token from cookies
+    """
+    return msg
 
 
 @router.get("/me")

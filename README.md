@@ -31,6 +31,7 @@ FastAPI REST boilerplate for typical project
 - [x] Mailing
 - [x] Realtime notification using [messaging queue](https://www.rabbitmq.com/) and [python-socketio](https://python-socketio.readthedocs.io/en/latest/server.html)
 - [x] File uploads (aws s3, cloudinary, google cloud storage)
+- [x] Redis
 - [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
 - [ ] I18N
@@ -130,7 +131,9 @@ Keep a note of the file paths where you save these keys on your project folder (
 - `AWS_SECRET_KEY`: AWS secret key for accessing the S3 bucket.
 - `AWS_REGION`: The AWS region where the S3 bucket is located.
 - `GCS_BUCKET_NAME`: The name of the Google Cloud Storage (GCS) bucket you want to access.
-
+- `REDIS_HOST`:
+- `REDIS_PORT`:
+- `REDIS_DB`:
 
 ## Quick run
 
@@ -155,15 +158,17 @@ cd my-app/
 cp .env.example .env
 ```
 
-Change `DATABASE_HOST=postgres` to `DATABASE_HOST=localhost`
+Change `DB_HOST=postgres` to `DB_HOST=localhost`, `DB_PORT=5432` to `DB_PORT=6001`
+`RABBIT_MQ_HOST=rabbitmq` to `RABBIT_MQ_HOST=localhost`
+`REDIS_HOST=redis-cache` to `REDIS_HOST=localhost`
 make sure you have [poetry](https://python-poetry.org) install
 Run additional container:
 
 ```bash
-docker-compose up -d postgres-db
+docker-compose up -d postgres-db redis-cache rabbitmq adminer
 poetry install
 poe migrate
-poetry run uvicorn app.main:app --port 8001 --host 0.0.0.0 --reload
+poe run
 ```
 
 ## Links

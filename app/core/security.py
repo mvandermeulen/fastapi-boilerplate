@@ -57,6 +57,14 @@ async def get_current_user(
     db: AsyncSession = Depends(get_async_db),
 ) -> User | None:
     data = decode_token(token=token)
+    revoked = await is_revoked(token=token)
+    if revoked:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Revoked token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
     if data["success"]:
         user = await crud.user.get_db_obj_by_id(db=db, id=data["payload"]["sub"]["id"])
         if user:
@@ -67,6 +75,26 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+
+
+async def revok_token(
+    token: Annotated[str, Depends(oauth2_scheme)],
+) -> Any:
+    data = decode_token(token=token)
+    if data["success"]:
+        crud.redis_conn.create(f"revoked_token:{token}", token, data["payload"]["exp"])
+        return {"message": "Successfully logout"}
+
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+
+async def is_revoked(token: str) -> bool:
+    res = crud.redis_conn.exist(f"revoked_token:{token}")
+    return res
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
