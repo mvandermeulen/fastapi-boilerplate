@@ -32,10 +32,10 @@ FastAPI REST boilerplate for typical project
 - [x] Realtime notification using [messaging queue](https://www.rabbitmq.com/) and [python-socketio](https://python-socketio.readthedocs.io/en/latest/server.html)
 - [x] File uploads (aws s3, cloudinary, google cloud storage)
 - [x] Redis
-- [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
+- [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] I18N
-- [ ] Elasticseach - logstash
+- [ ] Elasticseach
 - [ ] E2E and units tests.
 - [ ] Monitoring using grafana and prometheus ([Grafana](https://grafana.com/))
 - [ ] Docker.
@@ -87,7 +87,7 @@ You can use [this website](https://travistidwell.com/jsencrypt/demo/) or any oth
 Keep a note of the file paths where you save these keys on your project folder (like `private_key.pem` and `public_key.pem`) or local machine.
 
 
-- `ENV` : Running Environment
+- `ENV` : Running Environment can be dev, staging, preprod
 - `API_BASE_URL`: The pathname of the api version url
 - `API_URL`: api base url
 - `DB_HOST`: Postgres database host

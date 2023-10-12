@@ -16,7 +16,6 @@ class Settings(BaseSettings):
     TITLE: str = "FASTAPI-BOILERPLATE"
     ENV: str = "dev"
     BASE_URL: str = "/api/v1"
-    DEBUG: bool = False
     VERSION: str = "0.0.1"
     CORS_ORIGINS: list[str] = [
         "http://localhost:8000",
