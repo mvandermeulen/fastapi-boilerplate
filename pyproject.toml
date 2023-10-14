@@ -35,6 +35,8 @@ cloudinary = "^1.36.0"
 boto3 = "^1.28.62"
 google-cloud-storage = "^2.11.0"
 redis = "^5.0.1"
+casbin = "^1.31.2"
+casbin-sqlalchemy-adapter = "^0.5.2"
 
 [tool.poetry.group.dev.dependencies]
 locust = "^2.16.1"
