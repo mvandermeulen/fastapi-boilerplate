@@ -1,0 +1,53 @@
+{
+    "model": "casbin_sqlalchemy_adapter.CasbinRule",
+    "data": [
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "user",
+            "v2": "create"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "user",
+            "v2": "read"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "user",
+            "v2": "update"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "user",
+            "v2": "delete"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "file",
+            "v2": "create"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "file",
+            "v2": "read"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "file",
+            "v2": "update"
+        },
+        {
+            "ptype": "p",
+            "v0": "SUPER_ADMIN",
+            "v1": "file",
+            "v2": "delete"
+        }
+    ]
+}
