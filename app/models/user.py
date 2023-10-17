@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean
 from sqlalchemy import Column
+from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy import Text
 from sqlalchemy.orm import relationship
@@ -16,3 +17,5 @@ class User(ModelBaseMixinWithoutDeletedAt, Base):
     email_verified = Column(Boolean, nullable=False, server_default="0")
     password = Column(Text, nullable=False)
     notifications = relationship("Notification", back_populates="user")
+    role_id = Column(String(32), ForeignKey("role.id"))
+    role = relationship("Role", back_populates="users")

@@ -1,5 +1,5 @@
 {
-    "model": "casbin_sqlalchemy_adapter.CasbinRule",
+    "model": "app.models.CasbinRule",
     "data": [
         {
             "ptype": "p",

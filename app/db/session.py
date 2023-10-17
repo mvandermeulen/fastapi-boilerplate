@@ -84,10 +84,8 @@ def drop_all_tables() -> None:
     metadata = MetaData()
     metadata.reflect(bind=engine)
 
-    for table_key in metadata.tables:
-        table = metadata.tables.get(table_key)
-        if table is not None:
-            print(f"Deleting {table_key} table")
-            metadata.drop_all(engine, [table], checkfirst=True)
+    for table in reversed(metadata.sorted_tables):
+        print(f"Deleting {table.name} table")
+        metadata.drop_all(engine, [table], checkfirst=True)
 
     print("end: drop_all_tables")
