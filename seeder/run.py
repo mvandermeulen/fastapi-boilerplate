@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import fire
+from sqlalchemyseed import HybridSeeder
 from sqlalchemyseed import load_entities_from_json
-from sqlalchemyseed import Seeder
 
 from app.db import drop_all_tables
 from app.db import get_db
@@ -22,7 +22,8 @@ def seed() -> None:
             print(f"load seed file={str(file)}")
             entities.append(load_entities_from_json(str(file)))
 
-        seeder = Seeder(db)
+        seeder = HybridSeeder(db, ref_prefix="!")
+
         seeder.seed(entities)
         db.commit()
         print("end: seeds import completed")
