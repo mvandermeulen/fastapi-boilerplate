@@ -11,3 +11,4 @@ class Role(Base, ModelBaseMixinWithoutDeletedAt):
     description = Column(Text)
     label = Column(String(255))
     users = relationship("User", back_populates="role")
+    rules = relationship("CasbinRule", back_populates="role")
