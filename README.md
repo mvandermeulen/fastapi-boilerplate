@@ -32,7 +32,7 @@ FastAPI REST boilerplate for typical project
 - [x] Realtime notification using [messaging queue](https://www.rabbitmq.com/) and [python-socketio](https://python-socketio.readthedocs.io/en/latest/server.html)
 - [x] File uploads (aws s3, cloudinary, google cloud storage)
 - [x] Redis
-- [ ] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
+- [x] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
 - [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] I18N
 - [ ] Elasticseach
