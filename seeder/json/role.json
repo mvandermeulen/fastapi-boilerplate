@@ -4,6 +4,40 @@
         "data": {
             "description": "lorem ipsum...",
             "label": "super_admin",
+            "!rules": [
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "file",
+                        "v2": "create"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "file",
+                        "v2": "read"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "file",
+                        "v2": "update"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "file",
+                        "v2": "delete"
+                    }
+                }
+            ],
             "!users": [
                 {
                     "model": "app.models.User",
@@ -24,6 +58,72 @@
         "data": {
             "description": "lorem ipsum...",
             "label": "super_admin",
+            "!rules": [
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "user",
+                        "v2": "create"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "user",
+                        "v2": "read"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "user",
+                        "v2": "update"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "user",
+                        "v2": "delete"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "notification",
+                        "v2": "create"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "notification",
+                        "v2": "read"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "notification",
+                        "v2": "update"
+                    }
+                },
+                {
+                    "model": "app.models.CasbinRule",
+                    "data": {
+                        "ptype": "p",
+                        "v1": "notification",
+                        "v2": "delete"
+                    }
+                }
+            ],
             "!users": [
                 {
                     "model": "app.models.User",
