@@ -3,7 +3,7 @@
         "model": "app.models.Role",
         "data": {
             "description": "lorem ipsum...",
-            "label": "super_admin",
+            "label": "user",
             "!rules": [
                 {
                     "model": "app.models.CasbinRule",
