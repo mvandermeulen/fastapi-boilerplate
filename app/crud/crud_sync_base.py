@@ -68,7 +68,7 @@ class CRUDSyncBase(
         include_deleted: bool = False,
     ) -> ListResponseSchemaType:
         """Notes
-        include_deleted=Trueの場合は、削除フラグ=Trueのデータも返す.
+        include_deleted=True include_deleted=True returns data with delete flag=True.
         """
         where_clause = where_clause if where_clause is not None else []
         total_count = db.query(self.model).filter(*where_clause).count()
