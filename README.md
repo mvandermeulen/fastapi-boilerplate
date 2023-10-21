@@ -38,7 +38,7 @@ FastAPI REST boilerplate for typical project
 - [ ] Elasticseach
 - [ ] E2E and units tests.
 - [ ] Monitoring using grafana and prometheus ([Grafana](https://grafana.com/))
-- [ ] Docker.
+- [x] Docker.
 - [ ] CI ([Gitlab](https://docs.gitlab.com/ee/ci/)).
 
 ## Project Structure

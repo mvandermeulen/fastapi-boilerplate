@@ -1,35 +1,26 @@
 FROM python:3.11
 
-WORKDIR /app/
-
-# Install Poetry
-# RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
-#     cd /usr/local/bin && \
-#     ln -s /opt/poetry/bin/poetry && \
-#     poetry config virtualenvs.create false
-
-# use built-in pip to access poetry
-RUN pip install poetry
-
-# start installing things with poetry
-COPY poetry.lock pyproject.toml ./
-RUN poetry config virtualenvs.create false
-RUN poetry install
-
-COPY ./pyproject.toml ./poetry.lock* /app/
-
-RUN bash -c "poetry install --no-root --no-dev"
-
-COPY . /app
-ENV PYTHONPATH=/app
-
-RUN cp .env.exemple .env
-
 RUN apt-get update \
     && apt-get install gcc -y \
     && apt-get install libpq-dev -y \
     && apt-get clean
 
-EXPOSE 81
+# use built-in pip to access poetry
+RUN pip install poetry
 
-CMD poetry run uvicorn app.main:app --port 81
+WORKDIR /app/
+
+COPY ./pyproject.toml ./poetry.lock* /app/
+
+# Allow installing dev dependencies to run tests
+ARG INSTALL_DEV=false
+RUN poetry config virtualenvs.create false
+RUN bash -c "if [ $INSTALL_DEV == 'true' ] ; then poetry install --no-root ; else poetry install --no-root --no-dev ; fi"
+
+COPY . /app
+ENV PYTHONPATH=/app
+
+EXPOSE 81
+RUN cp .env.exemple .env
+# CMD poetry run uvicorn app.main:app --port 81
+RUN poe _bash_completion >> /root/.bashrc

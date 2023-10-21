@@ -8,7 +8,7 @@ services:
     ports:
       - '6002:5432'
     environment:
-      - POSTGRES_PASSWORD=co2Control2022
+      - POSTGRES_PASSWORD=password123
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -35,8 +35,8 @@ services:
     volumes:
       - redis-data:/bitnami/redis/data
     environment:
-      - ALLOW_EMPTY_PASSWORD=no
-      - REDIS_PASSWORD=password123
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=X4R4yJcke1hdC8a
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
 
   adminer:
@@ -45,6 +45,17 @@ services:
     restart: always
     ports:
       - 8080:8080
+
+  api:
+    build: .
+    container_name: 'api'
+    ports:
+      - 80:8001
+    depends_on:
+      - postgres-db
+      - rabbitmq
+      - redis-cache
+    command: [ "/bin/sh", "-c", "poe migrate && poe seed && poe run" ]
 
 volumes:
   pgdata:
