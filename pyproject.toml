@@ -37,6 +37,7 @@ google-cloud-storage = "^2.11.0"
 redis = "^5.0.1"
 casbin = "^1.31.2"
 casbin-sqlalchemy-adapter = "^0.5.2"
+elasticsearch = "^8.11.1"
 
 [tool.poetry.group.dev.dependencies]
 locust = "^2.16.1"

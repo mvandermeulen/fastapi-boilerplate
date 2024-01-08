@@ -1,0 +1,21 @@
+[
+    {
+        "database": "postgres",
+        "index": "user",
+        "nodes": {
+            "table": "user",
+            "columns": [
+                "id",
+                "firstname",
+                "lastname",
+                "phone",
+                "email",
+                "email_verified",
+                "role_id",
+                "created_at",
+                "updated_at"
+            ],
+            "children": []
+        }
+    }
+]

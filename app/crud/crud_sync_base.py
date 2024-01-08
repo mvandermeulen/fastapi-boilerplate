@@ -1,22 +1,26 @@
 import datetime
+import json
 import math
 from typing import Any
+from typing import List
 from typing import TypeVar
 
+from elasticsearch.helpers import scan
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from .base import CRUDBase
 from app import schemas
+from app.db.elastic_client import elasticsearch_client
 from app.models.base import Base
-from app.schemas.core import PagingQueryIn
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=BaseModel)
 ResponseSchemaType = TypeVar("ResponseSchemaType", bound=BaseModel)
 ListResponseSchemaType = TypeVar("ListResponseSchemaType", bound=BaseModel)
+es = elasticsearch_client()
 
 
 class CRUDSyncBase(
@@ -62,7 +66,7 @@ class CRUDSyncBase(
     def get_paged_list(
         self,
         db: Session,
-        paging_query_in: PagingQueryIn,
+        paging_query_in: schemas.PagingQueryIn,
         where_clause: list[Any] | None = None,
         sort_query_in: schemas.SortQueryIn | None = None,
         include_deleted: bool = False,
@@ -135,3 +139,90 @@ class CRUDSyncBase(
         db.flush()
         db.refresh(db_obj)
         return db_obj
+
+    def search_index(
+        self,
+        paging_query_in: schemas.PagingQueryIn,
+        index_name: str,
+        query_text: Any = None,
+        filters: Any = None,
+        fields: List[str] = [],
+        sort_query_in: Any | None = None,
+    ) -> Any:
+        """
+        => filters = [{"term": {"field_name": "value"}}]
+        # Modify 'field_name' and 'value' to your specific filter
+
+        # Modify 'field_to_search' to your specific field
+        """
+        body: Any = {
+            "from": paging_query_in.get_offset(),
+            "size": paging_query_in.per_page,
+            "query": {"match_all": {}},
+        }
+
+        if query_text and len(fields) > 0:
+            body["query"] = {
+                "multi_match": {
+                    "query": query_text,
+                    "fields": fields,
+                    "fuzziness": "AUTO",
+                }
+            }
+
+        if sort_query_in is not None:
+            sort = []
+            sort.append(
+                {sort_query_in["sortField"]: {"order": sort_query_in["direction"]}}
+            )
+            body["sort"] = json.loads(json.dumps(sort))
+        else:
+            body["sort"] = [
+                {
+                    "created_at": {
+                        "order": "asc",
+                        "missing": "_last",
+                    }
+                }
+            ]
+
+        if filters:
+            body["query"]["bool"]["filter"] = filters
+
+        results = es.search(index=index_name, body=body)
+        return results
+
+    def paginate_results(
+        self,
+        paging_query_in: schemas.PagingQueryIn,
+        index_name: str,
+        query_text: Any = None,
+        filters: Any = None,
+        fields: List[str] = [],
+        sort_query_in: Any | None = None,
+    ) -> ListResponseSchemaType:
+        results = self.search_index(
+            query_text=query_text,
+            index_name=index_name,
+            filters=filters,
+            paging_query_in=paging_query_in,
+            fields=fields,
+            sort_query_in=sort_query_in,
+        )
+        total_elmt = results["hits"]["total"]["value"]
+        data = [hit["_source"] for hit in results["hits"]["hits"]]
+
+        meta = schemas.PagingMeta(
+            total_data_count=total_elmt,
+            current_page=paging_query_in.page,
+            total_page_count=int(math.ceil(total_elmt / paging_query_in.per_page)),
+            per_page=paging_query_in.per_page,
+        )
+
+        list_response = self.list_response_class(data=data, meta=meta)
+
+        return list_response
+
+    def read_all(self, index_name):
+        scanner = scan(es, index=index_name)
+        return [result["_source"] for result in scanner]

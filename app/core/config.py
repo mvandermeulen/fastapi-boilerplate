@@ -119,6 +119,10 @@ class Settings(BaseSettings):
     REDIS_DB: int
     REDIS_PASSWORD: str
 
+    ELASTIC_HOST: str
+    ELASTIC_CLUSTER_NAME: str
+    ELASTIC_PASSWORD: str
+
 
 @lru_cache
 def get_settings() -> Settings:

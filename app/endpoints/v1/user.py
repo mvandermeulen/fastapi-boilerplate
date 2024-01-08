@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app import crud
@@ -18,10 +19,17 @@ async def get_all_users(
     q: str | None = None,
     paging_query_in: schemas.PagingQueryIn = Depends(),
     sort_query_in: schemas.UserSortQueryIn = Depends(),
-    include_deleted: bool = False,
-    db: AsyncSession = Depends(get_async_db),
+    # db: AsyncSession = Depends(get_async_db),
 ) -> schemas.UsersPagedResponse:
-    users = await crud.user.get_paged_list(db=db, paging_query_in=paging_query_in)
+
+    users = crud.user_sync.paginate_results(
+        paging_query_in=paging_query_in,
+        sort_query_in=jsonable_encoder(sort_query_in),
+        index_name="user",
+        query_text=q,
+        filters=None,
+        fields=["firstname", "lastname", "phone"],
+    )
     return users
 
 

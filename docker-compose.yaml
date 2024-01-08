@@ -11,6 +11,10 @@ services:
       - POSTGRES_PASSWORD=password123
     volumes:
       - pgdata:/var/lib/postgresql/data
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -46,6 +50,70 @@ services:
     ports:
       - 8080:8080
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.3
+    container_name: elasticsearch
+    environment:
+      - cluster.name=elastic
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - ELASTIC_PASSWORD=app@2024
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=true
+      - network.host=0.0.0.0
+      - http.host=0.0.0.0
+      - "cluster.routing.allocation.disk.watermark.low=85%"
+      - "cluster.routing.allocation.disk.watermark.high=95%"
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+
+  pgsync:
+    container_name: pgsync
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.pgsync
+    sysctls:
+      - net.ipv4.tcp_keepalive_time=200
+      - net.ipv4.tcp_keepalive_intvl=200
+      - net.ipv4.tcp_keepalive_probes=5
+    labels:
+      org.label-schema.name: "pgsync"
+      org.label-schema.description: "Postgres to Elasticsearch sync"
+      com.label-schema.service-type: "daemon"
+    depends_on:
+      - postgres-db
+      - redis-cache
+      - elasticsearch
+    environment:
+      - PG_USER=postgres
+      - PG_HOST=postgres-db
+      - PG_PORT=5432
+      - PG_PASSWORD=password123
+      - ELASTICSEARCH_SCHEME=http
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ELASTICSEARCH_USER=elastic
+      - ELASTICSEARCH_PASSWORD=app@2024
+      - ELASTICSEARCH_TIMEOUT=50
+      - ELASTICSEARCH_MAX_CHUNK_BYTES=104857600
+      - ELASTICSEARCH_QUEUE_SIZE=10
+      - ELASTICSEARCH_CHUNK_SIZE=1000
+      - ELASTICSEARCH_MAX_RETRIES=3
+      - ELASTICSEARCH_INITIAL_BACKOFF=5
+      - ELASTICSEARCH_THREAD_COUNT=2
+      - PYTHONUNBUFFERED=4
+      - NTHREADS_POLLDB=2
+      - QUERY_CHUNK_SIZE=5000
+      - REDIS_HOST=redis-cache
+      - REDIS_PORT=6379
+      - REDIS_AUTH=X4R4yJcke1hdC8a
+      - ELASTICSEARCH=true
+      - OPENSEARCH=false
+      - CONSOLE_LOGGING_HANDLER_MIN_LEVEL=INFO
+
   api:
     build: .
     container_name: 'api'
@@ -60,3 +128,4 @@ services:
 volumes:
   pgdata:
   redis-data:
+  elastic_data:

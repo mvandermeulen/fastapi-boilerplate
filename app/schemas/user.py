@@ -46,7 +46,6 @@ class UsersPagedResponse(BaseSchema):
 
 class UserSortFieldEnum(Enum):
     created_at = "created_at"
-    title = "title"
 
 
 class UserSortQueryIn(SortQueryIn):

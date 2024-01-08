@@ -2,7 +2,9 @@
 
 ## Description <!-- omit in toc -->
 
-FastAPI REST boilerplate for typical project
+FastAPI REST API boilerplate is a comprehensive starting point for developing robust web applications. It provides a structured foundation equipped with essential features and configurations.
+
+<img src=".github/preview.png" alt="Node.js Best Practices" width="250"/>
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -33,12 +35,12 @@ FastAPI REST boilerplate for typical project
 - [x] File uploads (aws s3, cloudinary, google cloud storage)
 - [x] Redis
 - [x] Admin and User roles using RBAC ([Casbin](https://casbin.org/fr/docs/rbac)).
+- [x] Elasticseach (using [pgsync](https://pgsync.com/), [elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html))
+- [x] Docker.
 - [ ] Admin dashboard using ([sqladmin](https://aminalaee.dev/sqladmin/))
 - [ ] I18N
-- [ ] Elasticseach
 - [ ] E2E and units tests.
 - [ ] Monitoring using grafana and prometheus ([Grafana](https://grafana.com/))
-- [x] Docker.
 - [ ] CI ([Gitlab](https://docs.gitlab.com/ee/ci/)).
 
 ## Project Structure
@@ -134,13 +136,15 @@ Keep a note of the file paths where you save these keys on your project folder (
 - `REDIS_HOST`:
 - `REDIS_PORT`:
 - `REDIS_DB`:
+- `ELASTIC_HOST`: Elasticsearch host, for exemple `http://elasticsearch:9200`
+- `ELASTIC_CLUSTER_NAME`: Elasticsearch cluster name for exemple `elastic`, you can find it in docker-compose file
+- `ELASTIC_PASSWORD`: Elasticsearch password for exemple `password123` you can find it in docker-compose file
 
 ## Quick run
 
 ```bash
 git clone --depth 1 https://github.com/kaanari-tech/fastapi-boilerplate.git my-app
 cd my-app/
-cp .env.example .env
 docker-compose up -d --build
 ```
 
@@ -158,16 +162,19 @@ cd my-app/
 cp .env.example .env
 ```
 
-Change `DB_HOST=postgres` to `DB_HOST=localhost`, `DB_PORT=5432` to `DB_PORT=6001`
+Change `DB_HOST=postgres` to `DB_HOST=localhost`,
+`DB_PORT=5432` to `DB_PORT=6001`
 `RABBIT_MQ_HOST=rabbitmq` to `RABBIT_MQ_HOST=localhost`
 `REDIS_HOST=redis-cache` to `REDIS_HOST=localhost`
+`ELASTIC_HOST=http://elasticsearch:9200` to `ELASTIC_HOST=http://localhost:9200`
 make sure you have [poetry](https://python-poetry.org) install
 Run additional container:
 
 ```bash
-docker-compose up -d postgres-db redis-cache rabbitmq adminer
+docker-compose up -d postgres-db redis-cache rabbitmq adminer elasticsearch
 poetry install
 poe migrate
+docker-compose up -d pgsync
 poe run
 ```
 

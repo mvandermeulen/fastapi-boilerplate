@@ -1,6 +1,7 @@
 from .core import BaseSchema
 from .core import PagingMeta
 from .core import PagingQueryIn
+from .core import SortDirectionEnum
 from .core import SortQueryIn
 from .file import FileBase
 from .file import FileCreate
