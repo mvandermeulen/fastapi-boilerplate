@@ -4,7 +4,7 @@
 
 FastAPI REST API boilerplate is a comprehensive starting point for developing robust web applications. It provides a structured foundation equipped with essential features and configurations.
 
-<img src=".github/preview.png" alt="Node.js Best Practices" width="250"/>
+<img src=".github/preview.png" alt="Swagger preview" />
 
 ## Table of Contents <!-- omit in toc -->
 
