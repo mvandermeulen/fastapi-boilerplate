@@ -47,7 +47,9 @@
                         "phone": "+2204000400829",
                         "email": "johnmarch@gmail.com",
                         "email_verified": false,
-                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE"
+                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE",
+                        "created_at": "2024-01-08T22:04:03.80486+00:00",
+                        "updated_at": "2024-01-08T22:04:03.80486+00:00"
                     }
                 }
             ]
@@ -133,7 +135,9 @@
                         "phone": "+104000400829",
                         "email": "juandelacruiz@gmail.com",
                         "email_verified": false,
-                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE"
+                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE",
+                        "created_at": "2024-01-08T22:04:03.80486+00:00",
+                        "updated_at": "2024-01-08T22:04:03.80486+00:00"
                     }
                 },
                 {
@@ -144,7 +148,9 @@
                         "phone": "+334000400829",
                         "email": "alfredboga@gmail.com",
                         "email_verified": false,
-                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE"
+                        "password": "$pbkdf2-sha256$29000$6t0757zXmrM2xpgzhrBWSg$8sW6DiXE8YsW0P2FT2V93kCUIOUNveStv6SHCnzg/YE",
+                        "created_at": "2024-01-08T22:04:03.80486+00:00",
+                        "updated_at": "2024-01-08T22:04:03.80486+00:00"
                     }
                 }
             ]

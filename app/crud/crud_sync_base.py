@@ -182,6 +182,7 @@ class CRUDSyncBase(
                     "created_at": {
                         "order": "asc",
                         "missing": "_last",
+                        "ignore_unmapped": True,
                     }
                 }
             ]
