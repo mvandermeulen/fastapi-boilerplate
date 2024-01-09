@@ -78,6 +78,8 @@ app.endpoints    # Restapi endpoints files
 ├── migrations
 ├── seeder
 |── .vscode
+|── .github
+|──...
 
 ```
 
